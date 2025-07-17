@@ -1,0 +1,82 @@
+﻿@page
+@{
+}
+
+@section Css{
+    <style>
+        .spinnerDiv {
+            height: 450px;
+        }
+
+        .spinner-grow:nth-child(1) {
+            color: #193e8f;
+        }
+
+        .spinner-grow:nth-child(2) {
+            color: #ef9739;
+        }
+
+        .spinner-grow:nth-child(3) {
+            color: #bebebe;
+        }
+
+        .spinner-grow:nth-child(4) {
+            color: #e53528;
+        }
+    </style>
+}
+
+<div id="manhattan" class="d-none"></div>
+
+<div class="spinnerDiv d-flex justify-content-center align-items-center d-none">
+    <div class="spinner-grow me-2" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+    <div class="spinner-grow me-2" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+    <div class="spinner-grow me-2" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+    <div class="spinner-grow me-2" role="status">
+        <span class="visually-hidden">Loading...</span>
+    </div>
+</div>
+
+@section Scripts {
+    <script src="https://cdn.plot.ly/plotly-3.0.1.min.js" charset="utf-8"></script>
+    <script type="text/javascript">
+        const manhatanChart = document.querySelector('#manhattan');
+        const spinnerEle = document.querySelector('.spinnerDiv');
+
+        GetManhatanData()
+
+        function GetManhatanData() {
+            spinnerEle.classList.remove('d-none');
+            manhatanChart.classList.add('d-none')
+            // 配置请求选项
+            const options = {
+              method: 'Get',
+              headers: {
+                'Content-Type': 'application/json'
+              }
+            };
+
+            fetch('/Manhatan/GetAllData',options)
+            .then(response =>  response.json())
+            .then(data => {
+                // initialChart(data.data,data.layout);
+                console.log(data)
+                initialChart(data.data,data.layout)
+            })
+            .catch(error => {
+            });
+        }
+
+        function initialChart(data,layout) {
+            spinnerEle.classList.add('d-none');
+            Plotly.newPlot('manhattan', data, layout);
+            manhatanChart.classList.remove('d-none')
+        }
+    </script>
+}

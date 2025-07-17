@@ -1,0 +1,87 @@
+﻿@section Css{
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-table@1.24.1/dist/bootstrap-table.min.css">
+}
+<form id="gwas-form">
+    <div class="col-3">
+        <label for="geneName" class="form-label">Gene Name</label>
+        <input type="text" id="geneName" name="geneName" class="form-control" placeholder="Please enter gene name">
+    </div>
+    <div id="toolbar" class="d-flex gap-2">
+        <button id="btnTableSubmit" class="btn btn-primary" type="submit">
+            <i class="bi bi-search me-2"></i>
+            <span>Query</span>
+        </button>
+        <button class="btn btn-outline-secondary" type="reset">
+            <i class="bi bi-arrow-clockwise me-2"></i>
+            <span>Reset</span>
+        </button>
+    </div>
+    <table
+           id="table"
+           data-toolbar="#toolbar"
+           data-toggle="table"
+           data-pagination="true"
+           data-query-params-type=""
+           data-query-params="queryParams"
+           data-side-pagination="server"
+           data-page-size="10"
+           data-method="post"
+           data-page-list="[10,20,30,40,50,60,70,80,90]"
+           data-url="/Manhatan/GetTableData">
+        <thead>
+            <tr>
+                <th data-field="chromosome">Chromosome</th>
+                <th data-field="position">Position</th>
+                <th data-field="minor_allele">Minor Allele</th>
+                <th data-field="major_allele">Major Allele</th>
+                <th data-field="annotation">Annotation</th>
+                <th data-field="ensemble_ID">Ensemble ID</th>
+                <th data-field="gene_name">Gene Name</th>
+                <th data-field="frequency_of_A1">Frequency of A1</th>
+                <th data-field="beta">Beta</th>
+                <th data-field="standard_error">Standard Error</th>
+                <th data-field="p_value">P-Value</th>
+                <th data-field="trait">Trait</th>
+            </tr>
+        </thead>
+    </table>
+</form>
+
+@section Scripts{
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap-table@1.24.1/dist/bootstrap-table.min.js"></script>
+    <script type="text/javascript">
+        const $table = $('#table');
+        const tableForm = document.querySelector('#gwas-form');
+
+        function queryParams(params) {
+            // 获取表单数据
+            const formObj = getFormData(tableForm);
+            const jsonParams = {
+                ...params,
+                filter: {
+                    ...formObj
+                }
+            }
+            return jsonParams;
+        }
+
+        tableForm.addEventListener('submit', event => {
+            event.preventDefault();
+            $table.bootstrapTable('refresh');
+        });
+        tableForm.addEventListener('reset', event => {
+            $table.bootstrapTable('refresh');
+        });
+
+        //获得表单对象
+        function getFormData(form) {
+            const formData = new FormData(form);
+            const formObject = {};
+            for (const [key, value] of formData.entries()) {
+                formObject[key] = value;
+            }
+            return formObject;
+        }
+    </script>
+}
