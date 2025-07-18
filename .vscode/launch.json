@@ -10,7 +10,7 @@
       "request": "launch",
       "preLaunchTask": "build",
       // 如果已更改目标框架，请确保更新程序路径。
-      "program": "${workspaceFolder}/AspDemo/bin/Debug/net9.0/AspDemo.dll",
+      "program": "${workspaceFolder}/AspDemo/bin/Debug/net8.0/AspDemo.dll",
       "args": [],
       "cwd": "${workspaceFolder}/AspDemo",
       "stopAtEntry": false,
