@@ -56,6 +56,27 @@ CRUD 增删改查
 - Mysql
 - **SQLite3**
 
+## 部署
+
+示例使用 Linux + nginx + systemd 部署项目，使用Windows+IIS部署可参考
+
+Windows
+
+- [将 ASP.NET Core 应用发布到 IIS | Microsoft Learn](https://learn.microsoft.com/zh-cn/aspnet/core/tutorials/publish-to-iis?view=aspnetcore-9.0&tabs=visual-studio)
+
+Linux
+
+- [使用 Nginx 在 Linux 上托管 ASP.NET Core | Microsoft Learn](https://learn.microsoft.com/zh-cn/aspnet/core/host-and-deploy/linux-nginx?view=aspnetcore-9.0&tabs=linux-ubuntu)
+- [在Linux上使用Nginx部署ASP.NET Core应用 · 珩宇Coding](https://ihuadz.top/posts/dotnet/004-在linux上部署asp.net-core应用/)
+
+本示例目录
+
+- 应用目录：/var/www/AspDemo
+
+- 后台进程配置文件：/etc/systemd/system/kestrel-aspdemo.service
+
+- nginx配置文件：/etc/nginx/conf.d/aspdemo.conf
+
 ## 工具
 
 - VS Code
